@@ -1,9 +1,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title> Payment Portal </title>
+    <style>
+    p{
+        margin-top:300px;
+    }
+    body {
+    background-image: url('page.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    }
+    </style>
+    </head>
+    <body>
+    <form action = "pay" method = "POST">
+    <h1><center><font color="FFFFFF"><font face = "Helvetica"><font size="17"><u>Payment Gateway</u></center></font></font></font size></h1>
+    <p align="center"><font color="000000"><font face="Helvetica"><font size="14"> <br> Name : Raman Sharma <br> ID: 457321 <br> Balance (in Rupees) : 1200</font></font></font size></p>
+    <center><button id="rzp-button1" onclick = "alert('Details confirmed')"><h1>
+    Confirm and Proceed to Pay</h1>
+    </button></center>
+    </form>
 </head>
-<body><button id="rzp-button1">Pay</button>
+<body>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
     var options = {
