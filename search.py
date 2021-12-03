@@ -11,10 +11,12 @@ class JsonSearch:
             if code["Employee_id"]==n:
                 information.append(code["Employee_id"])
                 information.append(code["name"])
-                information.append(code["Balance"])
+                information.append(code["Contact"])
+                information.append(code["Email"])
                 print(code["Employee_id"])
                 print(code["name"])
-                print(code["Balance"])
+                print(code["Contact"])
+                print(code["Email"])
                 f=1
         if(f==0):
             print("Invalid Entry!")
