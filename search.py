@@ -2,17 +2,21 @@ import json
 class JsonSearch:
     def __init__(self,n) :
         self.n=n
-    def Searching():
+    def Searching(n):
         customerData=open("data.json")
         customer=json.load(customerData)
         f=0
-        n=int(input("Enter The Employee ID:"))
+        information=[]
         for code in customer["people"]:
-            if (int(code["Employee_id"])==n):
+            if code["Employee_id"]==n:
+                information.append(code["Employee_id"])
+                information.append(code["name"])
+                information.append(code["Balance"])
                 print(code["Employee_id"])
                 print(code["name"])
                 print(code["Balance"])
                 f=1
         if(f==0):
-            print("I AM NOOB :)")
+            print("Invalid Entry!")
         customerData.close()
+        return information

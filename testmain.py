@@ -6,6 +6,9 @@ import numpy as np
 from pyzbar.pyzbar import decode
 import json
 from search import JsonSearch
+import os
+import razor
+import webbrowser
 
 # Colour palette
 WHITE = "#FFFFFF"
@@ -77,6 +80,8 @@ def scan():
         statusbar_label.config(text="Invalid QR code entry!")
     print(information)
 
+def testfunc():
+    os.system('python razor.py')
 
 # Labels
 store_label=Label(text="Cafeteria 3rd Floor",bg=WHITE,font=title, pady=20)
@@ -97,8 +102,27 @@ amount_entry.grid(row=3, column=2)
 # Buttons
 scan_button = Button(text="SCAN",pady=20,padx=35,font=customer_text,border=0,command=scan)
 scan_button.grid(row=2, column=1)
-pay_button = Button(text="PAY",pady=20,padx=30,font=customer_text,border=0)
+pay_button = Button(text="PAY",pady=20,padx=30,font=customer_text,border=0, command=testfunc)
 pay_button.grid(row=4, column=1, columnspan=2)
 
-
 window.mainloop()
+
+# import razorpay
+# import json
+# from flask import Flask, render_template, request
+# app=Flask(__name__,static_folder="static",static_url_path='',template_folder='templates')
+ 
+
+# @app.route('/')
+# def pay():
+#     global payment,name
+#     name=request.form.get('username')
+#     client = razorpay.Client(auth=("rzp_test_FkZvMExgTSe05S", "PQdBLPdJ2HCSV4devmbiav7y"))
+#     data = { "amount": 500, "currency": "INR", "receipt": "order_rcptid_11" }
+#     payment = client.order.create(data=data)
+#     return render_template('pay.html',payment=payment)
+
+# if __name__=='__main__':
+#     app.debug=True
+#     app.run()
+
