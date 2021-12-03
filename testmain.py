@@ -18,12 +18,11 @@ BLUE = "#2B3372"
 GREEN = "#228B22"
 RED = "#8B0000"
 
-emp_name="don"
-emp_id=0
-balance=0
-amount="0"
-email="noob@gmail.com"
-contact="This is a number"
+emp_name=""
+emp_id=""
+amount=""
+email=""
+contact=""
 
 # Tkinter object creation
 window = Tk()
@@ -72,28 +71,37 @@ def photoscan():
 def scan():
     global emp_name
     global emp_id
-    global balance
+    global contact
+    global email
     employee_id=photoscan()
     emp_id=employee_id
 
     information=JsonSearch.Searching(emp_id)
     if len(information)>0:
         emp_name=information[1]
-        customer_label.config(text=f"Name: {emp_name}\nEmployee ID: {emp_id}\nBalance: Rs.{balance}")
+        contact=information[2]
+        email=information[3]
+        customer_label.config(text=f"Name: {emp_name}\nEmployee ID: {emp_id}\nContact: {contact}")
         statusbar_label.config(text=f"Match found! Welcome {emp_name}!")
     else:
         statusbar_label.config(text="Invalid QR code entry!")
     print(information)
 
 def testfunc():
-    with open('templates/pay.html','w') as file:
-        file.write(f"<html lang=\"en\"><head><meta charset=\"UTF-8\"><title> Payment Portal </title><style>p{{margin-top:300px;}}body{{background-image: url(\'page.png\');background-repeat: no-repeat;    background-attachment: fixed;    background-size: cover;    }}    </style>    </head>    <body>    <form action = \"pay\" method = \"POST\">    <h1><center><font color=\"FFFFFF\"><font face = \"Helvetica\"><font size=\"17\"><u>Payment Gateway</u></center></font></font></font size></h1>    <p align=\"center\"><font color=\"000000\"><font face=\"Helvetica\"><font size=\"14\"> <br> Name : {emp_name} <br> ID: {emp_id} <br> Amount (in Rupees) : {amount} </font></font></font size></p> <center><button id=\"rzp-button1\" onclick = \"alert(\'Details confirmed\')\"><h1>    Confirm and Proceed to Pay</h1>    </button></center><br>    </form>    <form action=\"shutdown\" method=\"GET\"><center><button> Exit </center></button></form></head><body>    <script src=\"https://checkout.razorpay.com/v1/checkout.js\"></script>    <script>    var options = {{        \"key\": \"rzp_test_FkZvMExgTSe05S\",        \"amount\": \"{amount}\",        \"currency\": \"INR\",        \"name\": \"Cafetaria \",        \"description\": \"Test Transaction\",        \"image\": \"https://images-platform.99static.com//JEOcS6bbb-re8Levu6-yR3cfXgc=/1003x1003:1999x1999/fit-in/500x500/99designs-contests-attachments/112/112513/attachment_112513661\",        \"order_id\": \"{{{{payment[\'id\']}}}}\",          \"handler\": function (response){{            alert(response.razorpay_payment_id);            alert(response.razorpay_order_id);            alert(response.razorpay_signature)        }},        \"prefill\": {{            \"name\": \"{emp_name}\",            \"email\": \" {email} \",            \"contact\": \" {contact} \"        }},        \"notes\": {{           \"address\": \"Razorpay Corporate Office\"        }},        \"theme\": {{            \"color\": \"#3399cc\"        }}    }};    var rzp1 = new Razorpay(options);    rzp1.on(\'payment.failed\', function (response){{            alert(response.error.code);            alert(response.error.description);            alert(response.error.source);            alert(response.error.step);            alert(response.error.reason);            alert(response.error.metadata.order_id);            alert(response.error.metadata.payment_id);    }});    document.getElementById(\'rzp-button1\').onclick = function(e){{        rzp1.open();        e.preventDefault();    }}    </script></body></html>")
-    os.system('python razor.py')
+    amount=amount_entry.get()
+    if(amount!="" and int(amount)>0):
+        with open('amount.txt','w') as amt:
+            amt.write(amount)
+        with open('templates/pay.html','w') as file:
+            file.write(f"<html lang=\"en\"><head><meta charset=\"UTF-8\"><title> Payment Portal </title><style>p{{margin-top:300px;}}body{{background-image: url(\'page.png\');background-repeat: no-repeat;    background-attachment: fixed;    background-size: cover;    }}    </style>    </head>    <body>    <form action = \"pay\" method = \"POST\">    <h1><center><font color=\"FFFFFF\"><font face = \"Helvetica\"><font size=\"17\"><u>Payment Gateway</u></center></font></font></font size></h1>    <p align=\"center\"><font color=\"000000\"><font face=\"Helvetica\"><font size=\"14\"> <br> Name : {emp_name} <br> ID: {emp_id} <br> Amount (in Rupees) : {amount} </font></font></font size></p> <center><button id=\"rzp-button1\" onclick = \"alert(\'Details confirmed\')\"><h1>    Confirm and Proceed to Pay</h1>    </button></center><br>    </form>    <form action=\"shutdown\" method=\"GET\"><center><button> Exit </center></button></form></head><body>    <script src=\"https://checkout.razorpay.com/v1/checkout.js\"></script>    <script>    var options = {{        \"key\": \"rzp_test_FkZvMExgTSe05S\",        \"amount\": \"{amount}\",        \"currency\": \"INR\",        \"name\": \"Cafetaria \",        \"description\": \"Test Transaction\",        \"image\": \"https://images-platform.99static.com//JEOcS6bbb-re8Levu6-yR3cfXgc=/1003x1003:1999x1999/fit-in/500x500/99designs-contests-attachments/112/112513/attachment_112513661\",        \"order_id\": \"{{{{payment[\'id\']}}}}\",          \"handler\": function (response){{            alert(response.razorpay_payment_id);            alert(response.razorpay_order_id);            alert(response.razorpay_signature)        }},        \"prefill\": {{            \"name\": \"{emp_name}\",            \"email\": \" {email} \",            \"contact\": \" {contact} \"        }},        \"notes\": {{           \"address\": \"Razorpay Corporate Office\"        }},        \"theme\": {{            \"color\": \"#3399cc\"        }}    }};    var rzp1 = new Razorpay(options);    rzp1.on(\'payment.failed\', function (response){{            alert(response.error.code);            alert(response.error.description);            alert(response.error.source);            alert(response.error.step);            alert(response.error.reason);            alert(response.error.metadata.order_id);            alert(response.error.metadata.payment_id);    }});    document.getElementById(\'rzp-button1\').onclick = function(e){{        rzp1.open();        e.preventDefault();    }}    </script></body></html>")
+        os.system('python razor.py')
+    else:
+        statusbar_label.config(text="Enter a valid amount.")
 
 # Labels
 store_label=Label(text="Cafeteria 3rd Floor",bg=WHITE,font=title, pady=20)
 store_label.grid(row=1, column=1, columnspan=2)
-customer_label=Label(text="Name: ____________\nEmployee ID: _______\nBalance: Rs.________",fg=WHITE,bg=BLUE,font=customer_text, padx=20)
+customer_label=Label(text="Name: ____________\nEmployee ID: _______\nContact: _________",fg=WHITE,bg=BLUE,font=customer_text, padx=20)
 customer_label.grid(row=2, column=2)
 amount_label=Label(text="Enter amount: Rs.",bg=WHITE,font=body_text,pady=10)
 amount_label.grid(row=3, column=1)
@@ -102,7 +110,7 @@ statusbar_label.grid(row=5, column=1, columnspan=2)
 
 
 # Entries
-amount_entry = Entry(width=25, bg=BLUE)
+amount_entry = Entry(width=25, bg=BLUE, fg=WHITE)
 amount_entry.grid(row=3, column=2)
 
 

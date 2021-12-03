@@ -19,7 +19,9 @@ class payment:
         global payment,name
         name=request.form.get('username')
         client = razorpay.Client(auth=("rzp_test_FkZvMExgTSe05S", "PQdBLPdJ2HCSV4devmbiav7y"))
-        data = { "amount": 500, "currency": "INR", "receipt": "order_rcptid_11" }
+        with open("amount.txt","r") as amt:
+            amount=amt.readlines()
+        data = { "amount": int(amount[0])*100, "currency": "INR", "receipt": "order_rcptid_11" }
         payment = client.order.create(data=data)
 
         return render_template('pay.html',payment=payment)
