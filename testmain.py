@@ -9,6 +9,8 @@ from search import JsonSearch
 import os
 import razor
 import webbrowser
+import time 
+from time import sleep
 
 # Colour palette
 WHITE = "#FFFFFF"
@@ -16,9 +18,12 @@ BLUE = "#2B3372"
 GREEN = "#228B22"
 RED = "#8B0000"
 
-emp_name=""
+emp_name="don"
 emp_id=0
 balance=0
+amount="0"
+email="noob@gmail.com"
+contact="This is a number"
 
 # Tkinter object creation
 window = Tk()
@@ -81,6 +86,8 @@ def scan():
     print(information)
 
 def testfunc():
+    with open('templates/pay.html','w') as file:
+        file.write(f"<html lang=\"en\"><head><meta charset=\"UTF-8\"><title> Payment Portal </title><style>p{{margin-top:300px;}}body{{background-image: url(\'page.png\');background-repeat: no-repeat;    background-attachment: fixed;    background-size: cover;    }}    </style>    </head>    <body>    <form action = \"pay\" method = \"POST\">    <h1><center><font color=\"FFFFFF\"><font face = \"Helvetica\"><font size=\"17\"><u>Payment Gateway</u></center></font></font></font size></h1>    <p align=\"center\"><font color=\"000000\"><font face=\"Helvetica\"><font size=\"14\"> <br> Name : {emp_name} <br> ID: {emp_id} <br> Amount (in Rupees) : {amount} </font></font></font size></p> <center><button id=\"rzp-button1\" onclick = \"alert(\'Details confirmed\')\"><h1>    Confirm and Proceed to Pay</h1>    </button></center><br>    </form>    <form action=\"shutdown\" method=\"GET\"><center><button> Exit </center></button></form></head><body>    <script src=\"https://checkout.razorpay.com/v1/checkout.js\"></script>    <script>    var options = {{        \"key\": \"rzp_test_FkZvMExgTSe05S\",        \"amount\": \"{amount}\",        \"currency\": \"INR\",        \"name\": \"Cafetaria \",        \"description\": \"Test Transaction\",        \"image\": \"https://images-platform.99static.com//JEOcS6bbb-re8Levu6-yR3cfXgc=/1003x1003:1999x1999/fit-in/500x500/99designs-contests-attachments/112/112513/attachment_112513661\",        \"order_id\": \"{{{{payment[\'id\']}}}}\",          \"handler\": function (response){{            alert(response.razorpay_payment_id);            alert(response.razorpay_order_id);            alert(response.razorpay_signature)        }},        \"prefill\": {{            \"name\": \"{emp_name}\",            \"email\": \" {email} \",            \"contact\": \" {contact} \"        }},        \"notes\": {{           \"address\": \"Razorpay Corporate Office\"        }},        \"theme\": {{            \"color\": \"#3399cc\"        }}    }};    var rzp1 = new Razorpay(options);    rzp1.on(\'payment.failed\', function (response){{            alert(response.error.code);            alert(response.error.description);            alert(response.error.source);            alert(response.error.step);            alert(response.error.reason);            alert(response.error.metadata.order_id);            alert(response.error.metadata.payment_id);    }});    document.getElementById(\'rzp-button1\').onclick = function(e){{        rzp1.open();        e.preventDefault();    }}    </script></body></html>")
     os.system('python razor.py')
 
 # Labels
