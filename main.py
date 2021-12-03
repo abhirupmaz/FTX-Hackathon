@@ -15,6 +15,8 @@ RED = "#8B0000"
 
 emp_name=""
 emp_id=0
+contact=""
+email=""
 balance=0
 
 # Tkinter object creation
@@ -65,6 +67,8 @@ def scan():
     global emp_name
     global emp_id
     global balance
+    global email
+    global contact
     employee_id=photoscan()
     emp_id=employee_id
 
